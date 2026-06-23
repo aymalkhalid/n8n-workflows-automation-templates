@@ -1,0 +1,347 @@
+{
+  "name": "WhatsApp Incoming Message Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "httpMethod": [
+          "POST",
+          "GET"
+        ],
+        "path": "294d6837-3d11-46ca-a15e-0c9555d614da",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -64,
+        128
+      ],
+      "id": "5eecded4-1326-46ca-8e78-97153f1871c9",
+      "name": "Incoming WhatsApp",
+      "webhookId": "144a1ea3-c3a5-4e44-a7c0-72cffa447ce1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Incoming WhatsApp').item.json.body.entry[0].changes[0].value.messages[0].text.body }}",
+        "options": {
+          "systemMessage": "You are a friendly, general-purpose AI assistant. Answer the user's questions based on your internal knowledge. Do not attempt to use any tools or fetch external data. Be concise and conversational."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        592,
+        256
+      ],
+      "id": "f622adb4-8fef-4eb1-ba1f-6e85d35989c1",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {
+          "maxTokens": 1000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        592,
+        560
+      ],
+      "id": "5adbd5dd-0f28-4c5b-86a4-7355530c579c",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "qiofXE8Mfl0ODekr",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Incoming WhatsApp').item.json.body.entry[0].changes[0].value.contacts[0].wa_id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        800,
+        560
+      ],
+      "id": "4e4e8377-24f6-4512-9e5c-da93553992a5",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "={{ $('Incoming WhatsApp').item.json.body.entry[0].changes[0].value.metadata.phone_number_id }}",
+        "recipientPhoneNumber": "={{ $('Incoming WhatsApp').item.json.body.entry[0].changes[0].value.contacts[0].wa_id }}",
+        "textBody": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        1088,
+        240
+      ],
+      "id": "9c4ef81b-147d-421d-b1c7-a84094ac210a",
+      "name": "Send message",
+      "webhookId": "7bc83fbe-59e9-4538-8d0b-eea8c39b1760",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "HnSBPZOCFMRWufD7",
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3041f10a-185a-456b-a424-72292ff80fcb",
+              "leftValue": "={{ $json.query['hub.mode'] }}",
+              "rightValue": "subscribe",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "cce7ddab-bb97-4f5d-8316-496d890f6d78",
+              "leftValue": "={{ $json.query['hub.verify_token'] }}",
+              "rightValue": "asd",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        608,
+        -48
+      ],
+      "id": "4f3245f7-fe74-496f-ae42-ed302c33ca14",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.query['hub.challenge'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1104,
+        -48
+      ],
+      "id": "33fec70e-fd0c-4d0b-ab8b-3d5f299ab509",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": 200\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1552,
+        224
+      ],
+      "id": "f5dbba6a-88b7-4eb9-ae56-ad279cd3b104",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1366ab82-2300-49f7-af27-bca1f2d35d88",
+              "leftValue": "={{ $('Incoming WhatsApp').item.json.body.entry[0].changes[0].value.messages[0].text.body }}",
+              "rightValue": "messages",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "6ef824c1-e7ff-4e2c-bd2d-8284f5e40c57",
+              "leftValue": "={{ $json.body.entry[0].changes[0].value.messages[0].from }}",
+              "rightValue": "16465894168",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        368
+      ],
+      "id": "a13915e9-1cdd-42ac-8c13-d1f8c51d1634",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": 200\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        656,
+        928
+      ],
+      "id": "98da3658-565b-4cb4-8711-15024a9f9e36",
+      "name": "Message Event Received"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Incoming WhatsApp": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send message": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Message Event Received",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "0fe027e8-637c-4ff5-8b0e-900b39af3c23",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "412f9186c660e505529e1eb6f8f3721b314d14d606e2c4647f54d8d8b5078893"
+  },
+  "nodeGroups": [],
+  "id": "mX9VpNhpkssgyV1W",
+  "tags": []
+}
