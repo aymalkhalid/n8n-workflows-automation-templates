@@ -69,7 +69,7 @@
     {
       "parameters": {
         "sessionIdType": "customKey",
-        "sessionKey": "={{ $('Incoming WhatsApp').item.json.body.entry[0].changes[0].value.messages[0].type }}",
+        "sessionKey": "={{ $('Incoming WhatsApp').item.json.body.entry[0].changes[0].value.contacts[0].wa_id }}",
         "contextWindowLength": 10
       },
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
@@ -992,7 +992,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "e797a368-7bd3-4489-817f-1e998472958d",
+  "versionId": "c0600e31-7221-4735-bc1e-5f14097e0b03",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "412f9186c660e505529e1eb6f8f3721b314d14d606e2c4647f54d8d8b5078893"
