@@ -398,7 +398,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "=Bearer EAASmW6wxgsMBR5LPguSGnZCWi3jhrBO8iu9jID15RHKbzy32C9iMHOjeWrfuGWSbO8rK3ZC5ZCXQQ89g4sOBp1I87hEBKaBs06JJSG0UgxfiaUlZCVtmW7tbACAzZB6QwD3rMb95zM2aIFXeGUQTZB9L54n12McIW6wPgRPUMYSGE47QIeFllmZAGL5POXuaXeiHwZDZD"
+              "value": "=Bearer EAASmW6wxgsMB......."
             }
           ]
         },
@@ -421,7 +421,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer EAASmW6wxgsMBR5LPguSGnZCWi3jhrBO8iu9jID15RHKbzy32C9iMHOjeWrfuGWSbO8rK3ZC5ZCXQQ89g4sOBp1I87hEBKaBs06JJSG0UgxfiaUlZCVtmW7tbACAzZB6QwD3rMb95zM2aIFXeGUQTZB9L54n12McIW6wPgRPUMYSGE47QIeFllmZAGL5POXuaXeiHwZDZD"
+              "value": "Bearer EAASmW6wxgsMB......."
             }
           ]
         },
