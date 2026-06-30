@@ -398,7 +398,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "=Bearer EAASmW6wxgsMB......."
+              "value": "=Bearer {{ $env.WHATSAPP_ACCESS_TOKEN }}"
             }
           ]
         },
@@ -421,7 +421,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer EAASmW6wxgsMB......."
+              "value": "=Bearer {{ $env.WHATSAPP_ACCESS_TOKEN }}"
             }
           ]
         },
