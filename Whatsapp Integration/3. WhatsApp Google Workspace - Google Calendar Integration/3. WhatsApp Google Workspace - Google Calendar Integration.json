@@ -353,7 +353,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "=Bearer EAASmW6wxgsMBRZBDNLl0SUGhZBwRZCpBRYgMRhmIDZAZBLt3eDJLe2YfHRLvC0ieilxaOcGhxEI5e5WrMGWWQD8ZCEiEhD0GeiueFrfBu6pZBrxMPosZCPmwgleYZCRyxacHMNbZCWZB9pA1HUmjzW3ZBiIZAHHfLF8fYyLZBHod8aLH5qctXklZAaZA2xonj1D3ayYkVZBiwcQZDZD"
+              "value": "=Bearer EAASmW6wxgsM..............."
             }
           ]
         },
@@ -376,7 +376,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer EAASmW6wxgsMBRZBDNLl0SUGhZBwRZCpBRYgMRhmIDZAZBLt3eDJLe2YfHRLvC0ieilxaOcGhxEI5e5WrMGWWQD8ZCEiEhD0GeiueFrfBu6pZBrxMPosZCPmwgleYZCRyxacHMNbZCWZB9pA1HUmjzW3ZBiIZAHHfLF8fYyLZBHod8aLH5qctXklZAaZA2xonj1D3ayYkVZBiwcQZDZD"
+              "value": "Bearer EAASmW6wxgsM..............."
             }
           ]
         },
