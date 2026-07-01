@@ -398,7 +398,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "=Bearer {{ $env.WHATSAPP_ACCESS_TOKEN }}"
+              "value": "=Bearer Replace with Generated Access Token"
             }
           ]
         },
@@ -421,7 +421,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "=Bearer {{ $env.WHATSAPP_ACCESS_TOKEN }}"
+              "value": "=Bearer Replace with Generated Access Token"
             }
           ]
         },
