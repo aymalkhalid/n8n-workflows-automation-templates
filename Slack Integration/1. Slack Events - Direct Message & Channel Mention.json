@@ -1,5 +1,5 @@
 {
-  "name": "SLACK Integration",
+  "name": "Slack Events - Direct Message & Channel Mention",
   "nodes": [
     {
       "parameters": {
